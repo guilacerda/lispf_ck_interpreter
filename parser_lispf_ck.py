@@ -90,3 +90,31 @@ def read_file(entry_file_name):
     input_file.close()
 
 read_file()
+
+def interpreter_lf(ast, position, code_position):
+    for element in ast:
+        if(element[0] == 'do'):
+        elif(element[0] == 'print'):
+            print(chr(lisp_e[position]), end='')
+
+        elif(element[0] == 'read'):
+            lisp_e[position] = ord(getche())
+
+        elif(element[0] == 'loop'):
+            if (lisp_e[position] != 0):
+                i = 1
+
+                while i < len(element):
+                    interpreter_lf(element, position, code_position)
+                    i += 1
+
+                    if (lisp_e[position] == 0):
+                        i = len(element)
+
+        elif(element[0] == 'right'):
+        elif(element[0] == 'left'):
+        elif(element[0] == 'add'):
+        elif(element[0] == 'sub'):
+        elif(element[0] == 'inc'):
+        elif(element[0] == 'dec'):
+        elif(element[0] == 'do'):
