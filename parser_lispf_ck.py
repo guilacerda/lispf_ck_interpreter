@@ -86,35 +86,49 @@ def read_file(entry_file_name):
     code = eval(str(code.split()).replace("'(',", '[').replace("')'",']'))
 
     print(code)
+    interpreter_lf(code, position, code_position)
 
     input_file.close()
 
-read_file()
 
 def interpreter_lf(ast, position, code_position):
     for element in ast:
-        if(element[0] == 'do'):
-        elif(element[0] == 'print'):
+
+        print(element)
+        if(isinstance(element, list)):
+            if(element[0] == 'do'):
+                ...
+            elif(element[0] == 'add'):
+                lisp_e[position] = (lisp_e[position] + int(element[1])) % 256
+            elif(element == 'sub'):
+                lisp_e[position] = (lisp_e[position] - int(element[1])) % 256
+            elif(element[0] == 'loop'):
+                if (lisp_e[position] != 0):
+                    i = 1
+
+                    while i < len(element):
+                        interpreter_lf(element, position, code_position)
+                        i += 1
+
+                        if (lisp_e[position] == 0):
+                            i = len(element)
+        elif(element == 'print'):
             print(chr(lisp_e[position]), end='')
-
-        elif(element[0] == 'read'):
+        elif(element == 'read'):
             lisp_e[position] = ord(getche())
+        elif(element == 'right'):
+            position += 1
 
-        elif(element[0] == 'loop'):
-            if (lisp_e[position] != 0):
-                i = 1
+            if position == len(lisp_e):
+                lisp_e.append(0)
+        elif(element == 'left'):
+            position -= 1
+        elif(element == 'inc'):
+            lisp_e[position] = (lisp_e[position] + 1) % 256
+        elif(element == 'dec'):
+            lisp_e[position] = (lisp_e[position] - 1) % 256
 
-                while i < len(element):
-                    interpreter_lf(element, position, code_position)
-                    i += 1
 
-                    if (lisp_e[position] == 0):
-                        i = len(element)
+        code_position += 1
 
-        elif(element[0] == 'right'):
-        elif(element[0] == 'left'):
-        elif(element[0] == 'add'):
-        elif(element[0] == 'sub'):
-        elif(element[0] == 'inc'):
-        elif(element[0] == 'dec'):
-        elif(element[0] == 'do'):
+read_file()
