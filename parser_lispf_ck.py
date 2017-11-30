@@ -78,14 +78,11 @@ def read_file(entry_file_name):
     code = ' '.join(code)
     code_p = ' '.join(list(filter(None, re.split(r'(\(|\))', code)))).split()
 
-    # pretty_print(code_p)
-
     code_p[0] = ''
     code_p[len(code_p) - 1] = ''
     code = ' '.join(code_p)
     code = eval(str(code.split()).replace("'(',", '[').replace("')'",']'))
 
-    print(code)
     interpreter_lf(code, position, code_position)
 
     input_file.close()
@@ -93,11 +90,19 @@ def read_file(entry_file_name):
 
 def interpreter_lf(ast, position, code_position):
     for element in ast:
-
-        print(element)
         if(isinstance(element, list)):
             if(element[0] == 'do'):
-                ...
+                for element_after in range(len(element)):
+                    list_cmd = [element, position, code_position]
+                    interpreter_lf(list_cmd, position, code_position)
+            if(element[0] == 'do-after'):
+                for element_after in range(len(element[2])):
+                    list_cmd = ['do', element[1], element[2][element_after]]
+                    interpreter_lf(list_cmd, position, code_position)
+            if(element[0] == 'do-before'):
+                for element_before in range(len(element[2])):
+                    list_cmd = ['do', element[2][element_before], element[1]]
+                    interpreter_lf(list_cmd, position, code_position)
             elif(element[0] == 'add'):
                 lisp_e[position] = (lisp_e[position] + int(element[1])) % 256
             elif(element == 'sub'):

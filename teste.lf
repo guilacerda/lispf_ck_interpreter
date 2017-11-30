@@ -7,11 +7,10 @@
         dec right inc left
     )
 
-    (do
-        ; desloca para o lado e incrementa 48 vezes (corresponde ao 0 em ascii)
-        right (add 48)
 
-        ; imprime o resultado
-        print
-    )
+    ; desloca para o lado e incrementa 48 vezes (corresponde ao 0 em ascii)
+    right (add 48)
+
+    ; imprime o resultado
+    print
 )
